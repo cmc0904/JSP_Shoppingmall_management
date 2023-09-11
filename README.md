@@ -87,7 +87,7 @@ function checkValue() {
 input 태그에 정의한 name 을 통하여 유효성을 확인함.
 
 ## 회원정보 삽입
-
+```jsp
 <%
 request.setCharacterEncoding("UTF-8");
 Connection conn = DBConnetion.getConnection();
@@ -106,7 +106,7 @@ pstmt.setString(7, request.getParameter("city"));
 
 pstmt.executeUpdate();
 %>
-
+```
 form 태그를 이용하여 사용자가 입력한 데이터를 request 라는 객체에 실어 보내 데이터베이스에 유저정보 삽입
 <br>
 데이터베이스에 데이터를 저장한 후 
