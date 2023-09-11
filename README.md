@@ -1,7 +1,11 @@
 # JSP_Shoppingmall_management
 쇼핑몰 회원관리 웹사이트
 
-## 데이터베이스 접근
+## 자바 디자인 패턴 - 싱글톤
+
+Singleton 패턴은 인스턴스를 불필요하게 생성하지 않고 오직 JVM내에서 한 개의 인스턴스만 생성하여 재사용을 위해 사용되는 디자인패턴이다. 굉장히 널리 알려져 있는 디자인패턴입니다.
+
+## 싱글톤 방식이 적용된 데이터베이스 접근
 
 ```java
 package db;
@@ -31,8 +35,7 @@ public class DBConnection {
 }
 ```
 
-Java 디자인 패턴 중 Singleton 방식을 사용하여 데이터베이스 Connection으로 부터 만들어진 객체를 클래스 로딩 시에 초기화되며 필요할 때만 연결이 생성됩니다. 이로 인해 자원 낭비를 방지할 수 있습니다.
-
+Oracle 데이터베이스에 접근 하기 위한 객체를 얻기 위한 클래스 입니다.
 
 ## 회원등록
 ![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/d53bbf18-9ea5-4b37-8540-474d97aad8f3)
