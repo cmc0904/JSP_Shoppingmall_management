@@ -35,6 +35,7 @@ Java 디자인 패턴 중 Singleton 방식을 사용하여 데이터베이스 Co
 
 
 ## 회원등록
+![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/d53bbf18-9ea5-4b37-8540-474d97aad8f3)
 
 ```jsp
 <%
@@ -116,6 +117,8 @@ form 태그를 이용하여 사용자가 입력한 데이터를 request 라는 �
 index.jsp 로 redirect 하여 메인페이지로 이동
 
 ## 유저 정보 조회
+![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/83b194fe-07aa-41ff-b120-211c95d29f2d)
+
 ```jsp
 <%
 Connection conn = DBConnetion.getConnection();
