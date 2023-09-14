@@ -88,7 +88,7 @@ function checkValue() {
 
 사용자가 입력한 데이터가 유효한지 확인 하기 위한 코드 입니다.
 <br>
-input 태그에 정의한 name 을 통하여 유효성을 확인함.
+input 태그에 value 을 통하여 유효성을 확인함.
 
 ## 회원정보 삽입
 ```jsp
