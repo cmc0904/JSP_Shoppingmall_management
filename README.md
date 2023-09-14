@@ -35,7 +35,7 @@ public class DBConnection {
 }
 ```
 
-Oracle 데이터베이스에 접근 하기 위한 객체를 얻기 위한 함수를 얻기 위한 함수를 가진 클래스 입니다.
+Oracle 데이터베이스에 접근 하기 위한 객체를 얻기 위한 함수를  가진 클래스 입니다.
 
 ## 회원등록
 ![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/d53bbf18-9ea5-4b37-8540-474d97aad8f3)
