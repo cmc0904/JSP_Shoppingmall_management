@@ -168,3 +168,70 @@ ResultSet rs = pstmt.executeQuery();
 ```
 
 불러온 데이터로 부터 루프를 돌면서 사용자에게 데이터베이스에 저장된 데이터 정보를 브라우징함.
+
+## 회원정보 조회
+![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/bc9bb5c2-c030-496d-8699-aa3d02231af1)
+
+사용자가 입력한 회원정보가 존재하지 않는다면 해당 페이지를 브라우징 하게 됩니다.
+![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/9c325b2e-3b87-44bf-9831-c0c095b2a97e)
+
+사용자가 입력한 외원정보가 존재한다면 해당 페이지를 브라우징 하게 됩니다.
+![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/bc21882a-2f1b-471e-855c-a49f689ee6b4)
+
+```jsp
+<%
+request.setCharacterEncoding("UTF-8");
+
+
+Connection conn = DBConnection.getConnection();
+
+String sql = "select custno, custname, phone, address, to_char(joindate, 'yyyy-mm-dd'), case grade when 'A' then 'VIP' when 'B' then '일반'  when 'C' then '직원'  end,city from member_tbl_02 where custno = ?";
+
+
+PreparedStatement pstmt = conn.prepareStatement(sql);
+pstmt.setInt(1, Integer.valueOf(request.getParameter("custno")));
+
+ResultSet rs = pstmt.executeQuery();
+
+
+%>
+``` 
+
+form 태그를 통하여 입력 받은 회원정보를 통하여 데이터베이스로 부터 회원정보를 조회함.
+
+```jsp
+<% if(rs.next()) { %>
+	<table class="table_line">
+		<thead>
+			<tr>
+				<th>회원번호</th>
+				<th>회원성명</th>
+				<th>전화번호</th>
+				<th>주소</th>
+				<th>가입일자</th>
+				<th>고객등급</th>
+				<th>거주지역</th>
+			</tr>
+		</thead>
+		<tr>
+			<td><a><%=rs.getString(1)%></a></td>
+			<td><%=rs.getString(2)%></td>
+			<td><%=rs.getString(3)%></td>
+			<td><%=rs.getString(4)%></td>
+			<td><%=rs.getString(5)%></td>
+			<td><%=rs.getString(6)%></td>
+			<td><%=rs.getString(7)%></td>
+		</tr>
+		<tr>
+			<td colspan="7"><input type="button" value="홈으로"
+				onclick="location.href='index.jsp'"></td>
+		</tr>
+	</table>
+	<% } else {%>
+	<div style="text-align: center;">
+		<p>찾을 수 없는 없는 결과 입니다</p> <input type="button" value="다시조회"
+			onclick="location.href='member_search.jsp'">
+	</div>
+<% } %>
+```
+rs.next() 함수를 통하여 데이터 존재 유무를 확인하여 조건문을 통하여 데이터가 존재한다면 테이블을 브라우징, 존재하지 않는다면 조회할수 없다는 메세지와 함꼐 홈으로 버튼을 브라우징
