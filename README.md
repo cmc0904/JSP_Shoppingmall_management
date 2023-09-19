@@ -235,3 +235,66 @@ form 태그를 통하여 입력 받은 회원정보를 통하여 데이터베이
 <% } %>
 ```
 rs.next() 함수를 통하여 데이터 존재 유무를 확인하여 조건문을 통하여 데이터가 존재한다면 테이블을 브라우징, 존재하지 않는다면 조회할수 없다는 메세지와 함꼐 홈으로 버튼을 브라우징
+
+
+## 회원 매출 조회
+![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/b0845407-f93d-4f97-ae42-4e92f403ed9e)
+
+
+```java
+<%
+int num = 0;
+
+Connection conn = DBConnection.getConnection();
+
+String sql = "select member.custno, member.custname, case grade when 'A' then 'VIP' when 'B' then '일반'  when 'C' then '직원'  end as grade, sum(money.price) from member_tbl_02 member, MONEY_TBL_02 money where member.custno = money.custno group by member.custno, member.custname, grade order by sum(money.price) desc";
+
+PreparedStatement pstmt = conn.prepareStatement(sql);
+
+ResultSet rs = pstmt.executeQuery();
+
+%>
+```
+
+유저 정보 테이블, 매출 테이블 과 조인하여 회원 매출 조회
+
+
+```jsp
+<table class="table_line">
+	<thead>
+		<tr>
+			<th>회원번호</th>
+			<th>회원성명</th>
+			<th>고객등급</th>
+			<th>매출</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%
+		while (rs.next()) {
+		%>
+		<tr>
+			<td><%=rs.getString(1)%></td>
+			<td><%=rs.getString(2)%></td>
+			<td><%=rs.getString(3)%></td>
+			<td><%=rs.getString(4)%></td>
+			
+		</tr>
+		<%
+		num = num + rs.getInt(4);
+		}
+		
+		%>
+		<tr>
+			<td colspan="3">총합</td>
+			<td><%=num%></td>
+
+		</tr>
+	</tbody>
+</table>
+```
+데이터베이스로 부터 조회된 데이터를 기반으로 회원 매출 정보를 브라우징합니다. 또, 총 매출액을 계산하기 위하여 num 이라는 변수에 합산하여 더의상의 데이터가 존재하지 않는다면 루프가 종료 되어 총합을 브라우징 합니다.
+
+
+
+
