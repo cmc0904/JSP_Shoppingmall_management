@@ -296,5 +296,97 @@ ResultSet rs = pstmt.executeQuery();
 데이터베이스로 부터 조회된 데이터를 기반으로 회원 매출 정보를 브라우징합니다. 또, 총 매출액을 계산하기 위하여 num 이라는 변수에 합산하여 총 매출액을 계산합니다..
 
 
+## 회원정보 수정 및 삭제
+
+# 수정
+![image](https://github.com/cmc0904/JSP_Shoppingmall_management/assets/63144310/c3847469-2dba-4a86-bf30-6b3e962c1c10)
+
+```jsp
+<%
+
+Connection conn = DBConnection.getConnection();
+
+String sql = "SELECT * from member_tbl_02 where custno = ?";
+
+PreparedStatement pstmt = conn.prepareStatement(sql);
+pstmt.setInt(1, Integer.valueOf(request.getParameter("click_custno")));
+
+ResultSet rs = pstmt.executeQuery();
+
+rs.next();
+
+%>
+```
+파라미터를 통하여 전달된 회원번호을 통하여 데이터베이스에서 회원정보를 가져와 현재 저장되어 있는 회원정보를 사용자에게 브라우징함.
+
+```jsp
+<%
+
+request.setCharacterEncoding("UTF-8");
+
+Connection conn = DBConnection.getConnection();
 
 
+String sql = "update member_tbl_02 set custname = ?, phone = ?, address = ?, joindate = ?, grade = ?, city = ? where custno = ?";
+
+
+PreparedStatement pstmt = conn.prepareStatement(sql);
+
+
+pstmt.setString(1, request.getParameter("custname"));
+pstmt.setString(2, request.getParameter("phone"));
+pstmt.setString(3, request.getParameter("address"));
+pstmt.setString(4, request.getParameter("joindate"));
+pstmt.setString(5, request.getParameter("grade"));
+pstmt.setString(6, request.getParameter("city"));
+pstmt.setInt(7, Integer.valueOf(request.getParameter("custno")));
+pstmt.executeUpdate();
+%>
+
+```
+
+회원정보를 수정하고 제출하게 되면, 바뀐 데이터를 수정하게 됩니다.
+
+
+#삭제
+
+```js
+<script type="text/javascript">
+	function checkDel(custno) {
+		
+		
+		if(confirm("삭제 하시겠습까?") != 0) {
+			location.href = "delete_p.jsp?click_custno="+custno;
+			alert("삭제 되었습니다.");
+		} else {
+			alert("취소 되었습니다.");
+			return;
+		}
+	 	
+	}
+</script>
+```
+
+confirm() 을 통하여 다시 한번 확인하여 사용자가 확인을 누른다면 삭제 하게 됩니다.
+
+```jsp
+<%
+
+request.setCharacterEncoding("UTF-8");
+
+
+Connection conn = DBConnection.getConnection();
+
+
+String sql = "delete from member_tbl_02 where custno = ?";
+
+
+PreparedStatement pstmt = conn.prepareStatement(sql);
+
+pstmt.setInt(1, Integer.valueOf(request.getParameter("click_custno")));
+
+pstmt.executeUpdate();
+%>
+```
+
+파라미터를 통하여 삭제할 회원번호를 통하여 데이터베이스로 부터 삭제 하게 됩니다.
